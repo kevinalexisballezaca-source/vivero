@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Reportes | Vivero Escobar</title>
+
+  <!-- aplica el tema guardado (claro u oscuro) antes de mostrar la pagina -->
+  <script>
+    try { document.documentElement.setAttribute('data-bs-theme', localStorage.getItem('tema') || 'light'); } catch (e) {}
+  </script>
+
+  <!-- bootstrap, fuentes y estilos propios -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+  <link href="estilos.css" rel="stylesheet">
+</head>
+<body>
+
+  <header class="encabezado">
+    <div class="container">
+      <nav class="navbar navbar-expand-lg" data-bs-theme="dark">
+        <a class="navbar-brand" href="index.html">🌿 Vivero Escobar</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#menu" aria-controls="menu" aria-expanded="false" aria-label="Abrir menú">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-lg-end" id="menu">
+          <div class="menu-items">
+          <a class="nav-pildora" href="index.html">Inicio</a>
+          <a class="nav-pildora" href="inventario.html">Inventario</a>
+          <a class="nav-pildora" href="carrito.html">Carrito de Compras</a>
+          <a class="nav-pildora" href="ventas.html">Gestionar Ventas</a>
+          <a class="nav-pildora" href="usuarios.html">Gestionar Usuarios</a>
+          <a class="nav-pildora activo" href="reportes.html">Reportes</a>
+          <a class="nav-pildora" href="proveedores.html">Proveedores</a>
+          <a class="nav-pildora" href="clientes.html">Clientes</a>
+          <a class="nav-pildora" href="alertas.html">Alertas de Stock</a>
+          <a class="nav-pildora" href="nueva-venta.html">Registrar Venta</a>
+          <button type="button" class="btn-tema" id="tema">🌙 Oscuro</button>
+          </div>
+        </div>
+      </nav>
+
+      <div class="titulo-pagina">
+        <h1>Reportes</h1>
+        <p>Consulta las ventas y el inventario, imprímelos o descárgalos en PDF.</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="container pb-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        <div class="panel">
+        <div class="estadisticas">
+          <div><small>Total cobrado</small><span class="cifra">$1,295.00</span></div>
+          <div><small>Unidades en inventario</small><span class="cifra">128</span></div>
+          <div><small>Valor del inventario</small><span class="cifra">$12,565.00</span></div>
+        </div>
+        <div class="barra">
+          <select id="tipo" class="form-select">
+            <option value="ventas">Reporte de ventas</option>
+            <option value="inventario">Reporte de inventario</option>
+          </select>
+          <span class="flex-grow-1"></span>
+          <button class="btn btn-rosa" onclick="window.print()">🖨️ Imprimir</button>
+          <button class="btn btn-rosa" onclick="descargarPDF()">⬇️ Descargar PDF</button>
+        </div>
+
+        <div id="rep-ventas" class="tabla-scroll">
+          <table class="tabla">
+            <thead><tr><th>Folio</th><th>Fecha</th><th>Cliente</th><th class="der">Total</th><th>Estado</th></tr></thead>
+            <tbody>
+            <tr><td><strong>V-001</strong></td><td>04/10/2026</td><td>Mariana López</td><td class="der">$775.00</td><td><span class="pildora p-pagada">Pagada</span></td></tr>
+            <tr><td><strong>V-002</strong></td><td>04/10/2026</td><td>Carlos Treviño</td><td class="der">$280.00</td><td><span class="pildora p-pagada">Pagada</span></td></tr>
+            <tr><td><strong>V-003</strong></td><td>03/10/2026</td><td>Sofía Garza</td><td class="der">$300.00</td><td><span class="pildora p-pendiente">Pendiente</span></td></tr>
+            <tr><td><strong>V-004</strong></td><td>02/10/2026</td><td>Jorge Ramírez</td><td class="der">$240.00</td><td><span class="pildora p-pagada">Pagada</span></td></tr>
+            <tr><td><strong>V-005</strong></td><td>01/10/2026</td><td>Luisa Hernández</td><td class="der">$425.00</td><td><span class="pildora p-cancelada">Cancelada</span></td></tr>
+            <tr><td colspan="3"><strong>Total cobrado</strong></td><td class="der"><strong>$1,295.00</strong></td><td></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div id="rep-inventario" class="tabla-scroll d-none">
+          <table class="tabla">
+            <thead><tr><th>Producto</th><th>Categoría</th><th class="der">Precio</th><th class="der">Stock</th><th class="der">Valor</th></tr></thead>
+            <tbody>
+            <tr><td><strong>Helecho de Java</strong><br><small>VE01</small></td><td><span class="pildora p-planta">Planta</span></td><td class="der">$120.00</td><td class="der">25</td><td class="der">$3,000.00</td></tr>
+            <tr><td><strong>Maceta de Barro</strong><br><small>VE02</small></td><td><span class="pildora p-herramienta">Herramienta</span></td><td class="der">$85.00</td><td class="der">15</td><td class="der">$1,275.00</td></tr>
+            <tr><td><strong>Sustrato Universal</strong><br><small>VE03</small></td><td><span class="pildora p-sustrato">Sustrato</span></td><td class="der">$90.00</td><td class="der">20</td><td class="der">$1,800.00</td></tr>
+            <tr><td><strong>Orquídea Blanca</strong><br><small>VE04</small></td><td><span class="pildora p-planta">Planta</span></td><td class="der">$150.00</td><td class="der">12</td><td class="der">$1,800.00</td></tr>
+            <tr><td><strong>Regadera Metálica</strong><br><small>VE05</small></td><td><span class="pildora p-herramienta">Herramienta</span></td><td class="der">$110.00</td><td class="der">8</td><td class="der">$880.00</td></tr>
+            <tr><td><strong>Cactus Mini</strong><br><small>VE06</small></td><td><span class="pildora p-planta">Planta</span></td><td class="der">$70.00</td><td class="der">30</td><td class="der">$2,100.00</td></tr>
+            <tr><td><strong>Sustrato Premium</strong><br><small>VE07</small></td><td><span class="pildora p-sustrato">Sustrato</span></td><td class="der">$95.00</td><td class="der">18</td><td class="der">$1,710.00</td></tr>
+            <tr><td colspan="4"><strong>Valor total del inventario</strong></td><td class="der"><strong>$12,565.00</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="text-center py-3">Vivero Escobar © 2026</footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
+  <script>
+    // muestra el reporte que se elige en el select
+    document.getElementById('tipo').addEventListener('change', function () {
+        const esVentas = this.value === 'ventas';
+        document.getElementById('rep-ventas').classList.toggle('d-none', !esVentas);
+        document.getElementById('rep-inventario').classList.toggle('d-none', esVentas);
+    });
+
+    // el pdf se genera desde el cuadro de impresion del navegador
+    function descargarPDF() {
+        alert('En el cuadro de impresión elige "Guardar como PDF" como destino.');
+        window.print();
+    }
+  </script>
+</body>
+</html>

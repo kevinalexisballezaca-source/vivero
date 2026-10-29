@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Inventario | Vivero Escobar</title>
+
+  <!-- aplica el tema guardado (claro u oscuro) antes de mostrar la pagina -->
+  <script>
+    try { document.documentElement.setAttribute('data-bs-theme', localStorage.getItem('tema') || 'light'); } catch (e) {}
+  </script>
+
+  <!-- bootstrap, fuentes y estilos propios -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+  <link href="estilos.css" rel="stylesheet">
+</head>
+<body>
+
+  <header class="encabezado">
+    <div class="container">
+      <nav class="navbar navbar-expand-lg" data-bs-theme="dark">
+        <a class="navbar-brand" href="index.html">🌿 Vivero Escobar</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#menu" aria-controls="menu" aria-expanded="false" aria-label="Abrir menú">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-lg-end" id="menu">
+          <div class="menu-items">
+          <a class="nav-pildora" href="index.html">Inicio</a>
+          <a class="nav-pildora activo" href="inventario.html">Inventario</a>
+          <a class="nav-pildora" href="carrito.html">Carrito de Compras</a>
+          <a class="nav-pildora" href="ventas.html">Gestionar Ventas</a>
+          <a class="nav-pildora" href="usuarios.html">Gestionar Usuarios</a>
+          <a class="nav-pildora" href="reportes.html">Reportes</a>
+          <a class="nav-pildora" href="proveedores.html">Proveedores</a>
+          <a class="nav-pildora" href="clientes.html">Clientes</a>
+          <a class="nav-pildora" href="alertas.html">Alertas de Stock</a>
+          <a class="nav-pildora" href="nueva-venta.html">Registrar Venta</a>
+          <button type="button" class="btn-tema" id="tema">🌙 Oscuro</button>
+          </div>
+        </div>
+      </nav>
+
+      <div class="titulo-pagina">
+        <h1>Inventario</h1>
+        <p>Busca, filtra y administra todo lo que hay en el vivero.</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="container pb-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        <div class="panel">
+        <div class="barra">
+          <button class="btn btn-rosa" onclick="proximamente('agregar un producto')">Agregar Producto</button>
+          <input type="text" id="buscar" class="form-control" placeholder="Buscar producto…">
+          <select id="filtro" class="form-select">
+        <option value="todos">Todas las categorías</option>
+        <option value="planta">Planta</option>
+        <option value="herramienta">Herramienta</option>
+        <option value="sustrato">Sustrato</option>
+          </select>
+        </div>
+        <div class="tabla-scroll">
+          <table class="tabla">
+            <thead><tr><th>Producto</th><th>Categoría</th><th class="der">Precio</th><th class="der">Stock</th><th class="der">Acciones</th></tr></thead>
+            <tbody>
+            <tr class="fila" data-texto="helecho de java ve01" data-filtro="planta">
+              <td><div class="d-flex align-items-center gap-3">
+                <span class="icono-producto" style="background:#dcebd9">🌿</span>
+                <div><strong>Helecho de Java</strong><br><small>VE01</small></div></div></td>
+              <td><span class="pildora p-planta">Planta</span></td>
+              <td class="der">$120.00</td>
+              <td class="der"><strong>25</strong></td>
+              <td class="der"><button class="btn-icono" title="Editar" onclick="proximamente('editar el producto')">✏️</button><button class="btn-icono" title="Eliminar" onclick="borrarFila(this)">🗑️</button></td>
+            </tr>
+            <tr class="fila" data-texto="maceta de barro ve02" data-filtro="herramienta">
+              <td><div class="d-flex align-items-center gap-3">
+                <span class="icono-producto" style="background:#fbe5d0">🪴</span>
+                <div><strong>Maceta de Barro</strong><br><small>VE02</small></div></div></td>
+              <td><span class="pildora p-herramienta">Herramienta</span></td>
+              <td class="der">$85.00</td>
+              <td class="der"><strong>15</strong></td>
+              <td class="der"><button class="btn-icono" title="Editar" onclick="proximamente('editar el producto')">✏️</button><button class="btn-icono" title="Eliminar" onclick="borrarFila(this)">🗑️</button></td>
+            </tr>
+            <tr class="fila" data-texto="sustrato universal ve03" data-filtro="sustrato">
+              <td><div class="d-flex align-items-center gap-3">
+                <span class="icono-producto" style="background:#efe3d6">🟤</span>
+                <div><strong>Sustrato Universal</strong><br><small>VE03</small></div></div></td>
+              <td><span class="pildora p-sustrato">Sustrato</span></td>
+              <td class="der">$90.00</td>
+              <td class="der"><strong>20</strong></td>
+              <td class="der"><button class="btn-icono" title="Editar" onclick="proximamente('editar el producto')">✏️</button><button class="btn-icono" title="Eliminar" onclick="borrarFila(this)">🗑️</button></td>
+            </tr>
+            <tr class="fila" data-texto="orquídea blanca ve04" data-filtro="planta">
+              <td><div class="d-flex align-items-center gap-3">
+                <span class="icono-producto" style="background:#fbd9e5">🌸</span>
+                <div><strong>Orquídea Blanca</strong><br><small>VE04</small></div></div></td>
+              <td><span class="pildora p-planta">Planta</span></td>
+              <td class="der">$150.00</td>
+              <td class="der"><strong>12</strong></td>
+              <td class="der"><button class="btn-icono" title="Editar" onclick="proximamente('editar el producto')">✏️</button><button class="btn-icono" title="Eliminar" onclick="borrarFila(this)">🗑️</button></td>
+            </tr>
+            <tr class="fila" data-texto="regadera metálica ve05" data-filtro="herramienta">
+              <td><div class="d-flex align-items-center gap-3">
+                <span class="icono-producto" style="background:#fbe5d0">💧</span>
+                <div><strong>Regadera Metálica</strong><br><small>VE05</small></div></div></td>
+              <td><span class="pildora p-herramienta">Herramienta</span></td>
+              <td class="der">$110.00</td>
+              <td class="der"><a class="pildora p-bajo" href="alertas.html" style="text-decoration:none">8 · bajo</a></td>
+              <td class="der"><button class="btn-icono" title="Editar" onclick="proximamente('editar el producto')">✏️</button><button class="btn-icono" title="Eliminar" onclick="borrarFila(this)">🗑️</button></td>
+            </tr>
+            <tr class="fila" data-texto="cactus mini ve06" data-filtro="planta">
+              <td><div class="d-flex align-items-center gap-3">
+                <span class="icono-producto" style="background:#dcebd9">🌵</span>
+                <div><strong>Cactus Mini</strong><br><small>VE06</small></div></div></td>
+              <td><span class="pildora p-planta">Planta</span></td>
+              <td class="der">$70.00</td>
+              <td class="der"><strong>30</strong></td>
+              <td class="der"><button class="btn-icono" title="Editar" onclick="proximamente('editar el producto')">✏️</button><button class="btn-icono" title="Eliminar" onclick="borrarFila(this)">🗑️</button></td>
+            </tr>
+            <tr class="fila" data-texto="sustrato premium ve07" data-filtro="sustrato">
+              <td><div class="d-flex align-items-center gap-3">
+                <span class="icono-producto" style="background:#efe3d6">🟤</span>
+                <div><strong>Sustrato Premium</strong><br><small>VE07</small></div></div></td>
+              <td><span class="pildora p-sustrato">Sustrato</span></td>
+              <td class="der">$95.00</td>
+              <td class="der"><strong>18</strong></td>
+              <td class="der"><button class="btn-icono" title="Editar" onclick="proximamente('editar el producto')">✏️</button><button class="btn-icono" title="Eliminar" onclick="borrarFila(this)">🗑️</button></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="text-center py-3">Vivero Escobar © 2026</footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

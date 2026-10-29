@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ventas | Vivero Escobar</title>
+
+  <!-- aplica el tema guardado (claro u oscuro) antes de mostrar la pagina -->
+  <script>
+    try { document.documentElement.setAttribute('data-bs-theme', localStorage.getItem('tema') || 'light'); } catch (e) {}
+  </script>
+
+  <!-- bootstrap, fuentes y estilos propios -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+  <link href="estilos.css" rel="stylesheet">
+</head>
+<body>
+
+  <header class="encabezado">
+    <div class="container">
+      <nav class="navbar navbar-expand-lg" data-bs-theme="dark">
+        <a class="navbar-brand" href="index.html">🌿 Vivero Escobar</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#menu" aria-controls="menu" aria-expanded="false" aria-label="Abrir menú">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-lg-end" id="menu">
+          <div class="menu-items">
+          <a class="nav-pildora" href="index.html">Inicio</a>
+          <a class="nav-pildora" href="inventario.html">Inventario</a>
+          <a class="nav-pildora" href="carrito.html">Carrito de Compras</a>
+          <a class="nav-pildora activo" href="ventas.html">Gestionar Ventas</a>
+          <a class="nav-pildora" href="usuarios.html">Gestionar Usuarios</a>
+          <a class="nav-pildora" href="reportes.html">Reportes</a>
+          <a class="nav-pildora" href="proveedores.html">Proveedores</a>
+          <a class="nav-pildora" href="clientes.html">Clientes</a>
+          <a class="nav-pildora" href="alertas.html">Alertas de Stock</a>
+          <a class="nav-pildora" href="nueva-venta.html">Registrar Venta</a>
+          <button type="button" class="btn-tema" id="tema">🌙 Oscuro</button>
+          </div>
+        </div>
+      </nav>
+
+      <div class="titulo-pagina">
+        <h1>Ventas</h1>
+        <p>Consulta lo que se ha vendido y revisa qué falta por cobrar.</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="container pb-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        <div class="panel">
+        <div class="estadisticas">
+          <div><small>Ventas registradas</small><span class="cifra" id="n-ventas">5</span></div>
+          <div><small>Cobrado</small><span class="cifra" id="cobrado">$1,295.00</span></div>
+          <div><small>Por cobrar</small><span class="cifra" id="por-cobrar">$300.00</span></div>
+        </div>
+        <div class="barra">
+          <a class="btn btn-rosa" href="nueva-venta.html">Registrar Venta</a>
+          <input type="text" id="buscar" class="form-control" placeholder="Buscar por folio o cliente…">
+          <select id="filtro" class="form-select">
+        <option value="todos">Todos los estados</option>
+        <option value="pagada">Pagada</option>
+        <option value="pendiente">Pendiente</option>
+        <option value="cancelada">Cancelada</option>
+          </select>
+        </div>
+        <div class="tabla-scroll">
+          <table class="tabla">
+            <thead><tr><th>Venta</th><th>Cliente</th><th class="der">Total</th><th>Estado</th><th class="der">Acciones</th></tr></thead>
+            <tbody>
+            <tr class="fila" data-texto="v-001 mariana lópez" data-filtro="pagada" data-total="775">
+              <td><strong>V-001</strong><br><small>04/10/2026</small></td>
+              <td><strong>Mariana López</strong><br><small>Helecho de Java ×2, Maceta de Barro ×1, Orquídea Blanca ×3</small></td>
+              <td class="der"><strong>$775.00</strong></td>
+              <td><span class="pildora p-pagada">Pagada</span></td>
+              <td class="der"><button class="btn-icono" title="Ver" onclick="proximamente('ver el detalle de la venta')">👁️</button><button class="btn-icono" title="Eliminar" onclick="borrarFila(this)">🗑️</button></td>
+            </tr>
+            <tr class="fila" data-texto="v-002 carlos treviño" data-filtro="pagada" data-total="280">
+              <td><strong>V-002</strong><br><small>04/10/2026</small></td>
+              <td><strong>Carlos Treviño</strong><br><small>Cactus Mini ×4</small></td>
+              <td class="der"><strong>$280.00</strong></td>
+              <td><span class="pildora p-pagada">Pagada</span></td>
+              <td class="der"><button class="btn-icono" title="Ver" onclick="proximamente('ver el detalle de la venta')">👁️</button><button class="btn-icono" title="Eliminar" onclick="borrarFila(this)">🗑️</button></td>
+            </tr>
+            <tr class="fila" data-texto="v-003 sofía garza" data-filtro="pendiente" data-total="300">
+              <td><strong>V-003</strong><br><small>03/10/2026</small></td>
+              <td><strong>Sofía Garza</strong><br><small>Sustrato Premium ×2, Regadera Metálica ×1</small></td>
+              <td class="der"><strong>$300.00</strong></td>
+              <td><span class="pildora p-pendiente">Pendiente</span></td>
+              <td class="der"><button class="btn-icono" title="Ver" onclick="proximamente('ver el detalle de la venta')">👁️</button><button class="btn-icono" title="Eliminar" onclick="borrarFila(this)">🗑️</button></td>
+            </tr>
+            <tr class="fila" data-texto="v-004 jorge ramírez" data-filtro="pagada" data-total="240">
+              <td><strong>V-004</strong><br><small>02/10/2026</small></td>
+              <td><strong>Jorge Ramírez</strong><br><small>Orquídea Blanca ×1, Sustrato Universal ×1</small></td>
+              <td class="der"><strong>$240.00</strong></td>
+              <td><span class="pildora p-pagada">Pagada</span></td>
+              <td class="der"><button class="btn-icono" title="Ver" onclick="proximamente('ver el detalle de la venta')">👁️</button><button class="btn-icono" title="Eliminar" onclick="borrarFila(this)">🗑️</button></td>
+            </tr>
+            <tr class="fila" data-texto="v-005 luisa hernández" data-filtro="cancelada" data-total="425">
+              <td><strong>V-005</strong><br><small>01/10/2026</small></td>
+              <td><strong>Luisa Hernández</strong><br><small>Maceta de Barro ×5</small></td>
+              <td class="der"><strong>$425.00</strong></td>
+              <td><span class="pildora p-cancelada">Cancelada</span></td>
+              <td class="der"><button class="btn-icono" title="Ver" onclick="proximamente('ver el detalle de la venta')">👁️</button><button class="btn-icono" title="Eliminar" onclick="borrarFila(this)">🗑️</button></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="text-center py-3">Vivero Escobar © 2026</footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
+  <script>
+    // actualiza las cifras de arriba segun las filas que quedan
+    function actualizarResumen() {
+        let cobrado = 0, porCobrar = 0;
+        const filas = document.querySelectorAll('.fila');
+        filas.forEach(function (fila) {
+            const total = parseFloat(fila.dataset.total);
+            if (fila.dataset.filtro === 'pagada') cobrado += total;
+            if (fila.dataset.filtro === 'pendiente') porCobrar += total;
+        });
+        document.getElementById('n-ventas').textContent = filas.length;
+        document.getElementById('cobrado').textContent = '$' + cobrado.toLocaleString('en-US', { minimumFractionDigits: 2 });
+        document.getElementById('por-cobrar').textContent = '$' + porCobrar.toLocaleString('en-US', { minimumFractionDigits: 2 });
+    }
+  </script>
+</body>
+</html>

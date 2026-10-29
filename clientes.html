@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Clientes frecuentes | Vivero Escobar</title>
+
+  <!-- aplica el tema guardado (claro u oscuro) antes de mostrar la pagina -->
+  <script>
+    try { document.documentElement.setAttribute('data-bs-theme', localStorage.getItem('tema') || 'light'); } catch (e) {}
+  </script>
+
+  <!-- bootstrap, fuentes y estilos propios -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+  <link href="estilos.css" rel="stylesheet">
+</head>
+<body>
+
+  <header class="encabezado">
+    <div class="container">
+      <nav class="navbar navbar-expand-lg" data-bs-theme="dark">
+        <a class="navbar-brand" href="index.html">🌿 Vivero Escobar</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#menu" aria-controls="menu" aria-expanded="false" aria-label="Abrir menú">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-lg-end" id="menu">
+          <div class="menu-items">
+          <a class="nav-pildora" href="index.html">Inicio</a>
+          <a class="nav-pildora" href="inventario.html">Inventario</a>
+          <a class="nav-pildora" href="carrito.html">Carrito de Compras</a>
+          <a class="nav-pildora" href="ventas.html">Gestionar Ventas</a>
+          <a class="nav-pildora" href="usuarios.html">Gestionar Usuarios</a>
+          <a class="nav-pildora" href="reportes.html">Reportes</a>
+          <a class="nav-pildora" href="proveedores.html">Proveedores</a>
+          <a class="nav-pildora activo" href="clientes.html">Clientes</a>
+          <a class="nav-pildora" href="alertas.html">Alertas de Stock</a>
+          <a class="nav-pildora" href="nueva-venta.html">Registrar Venta</a>
+          <button type="button" class="btn-tema" id="tema">🌙 Oscuro</button>
+          </div>
+        </div>
+      </nav>
+
+      <div class="titulo-pagina">
+        <h1>Clientes frecuentes</h1>
+        <p>Revisa quiénes compran más y cuánto han gastado.</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="container pb-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        <div class="panel">
+        <div class="estadisticas">
+          <div><small>Clientes registrados</small><span class="cifra" id="n-clientes">5</span></div>
+          <div><small>Compras acumuladas</small><span class="cifra" id="n-compras">20</span></div>
+          <div><small>Total acumulado</small><span class="cifra" id="n-total">$9,340.00</span></div>
+        </div>
+        <div class="barra">
+          <button class="btn btn-rosa" onclick="proximamente('agregar un cliente')">Agregar Cliente</button>
+          <input type="text" id="buscar" class="form-control" placeholder="Buscar por nombre o correo…">
+          <select id="filtro" class="form-select">
+        <option value="todos">Todos los clientes</option>
+        <option value="frecuente">Frecuentes</option>
+        <option value="ocasional">Ocasionales</option>
+          </select>
+        </div>
+        <div class="tabla-scroll">
+          <table class="tabla">
+            <thead><tr><th>Cliente</th><th class="der">Compras</th><th>Última compra</th><th class="der">Total acumulado</th><th class="der">Acciones</th></tr></thead>
+            <tbody>
+            <tr class="fila" data-texto="mariana lópez mariana@correo.mx" data-filtro="frecuente" data-compras="6" data-total="3480">
+              <td><div class="d-flex align-items-center gap-3">
+                <span class="avatar" style="background:#fbd9e5">ML</span>
+                <div><strong>Mariana López</strong><br><small>mariana@correo.mx · (831) 555-0201</small></div></div></td>
+              <td class="der">6</td>
+              <td>04/10/2026</td>
+              <td class="der"><strong>$3,480.00</strong></td>
+              <td class="der"><button class="btn-icono" title="Editar" onclick="proximamente('editar el cliente')">✏️</button><button class="btn-icono" title="Eliminar" onclick="borrarFila(this)">🗑️</button></td>
+            </tr>
+            <tr class="fila" data-texto="carlos treviño carlos@correo.mx" data-filtro="ocasional" data-compras="3" data-total="1150">
+              <td><div class="d-flex align-items-center gap-3">
+                <span class="avatar" style="background:#dcebd9">CT</span>
+                <div><strong>Carlos Treviño</strong><br><small>carlos@correo.mx · (831) 555-0202</small></div></div></td>
+              <td class="der">3</td>
+              <td>04/10/2026</td>
+              <td class="der"><strong>$1,150.00</strong></td>
+              <td class="der"><button class="btn-icono" title="Editar" onclick="proximamente('editar el cliente')">✏️</button><button class="btn-icono" title="Eliminar" onclick="borrarFila(this)">🗑️</button></td>
+            </tr>
+            <tr class="fila" data-texto="sofía garza sofia@correo.mx" data-filtro="frecuente" data-compras="4" data-total="1860">
+              <td><div class="d-flex align-items-center gap-3">
+                <span class="avatar" style="background:#efe3d6">SG</span>
+                <div><strong>Sofía Garza</strong><br><small>sofia@correo.mx · (831) 555-0203</small></div></div></td>
+              <td class="der">4</td>
+              <td>03/10/2026</td>
+              <td class="der"><strong>$1,860.00</strong></td>
+              <td class="der"><button class="btn-icono" title="Editar" onclick="proximamente('editar el cliente')">✏️</button><button class="btn-icono" title="Eliminar" onclick="borrarFila(this)">🗑️</button></td>
+            </tr>
+            <tr class="fila" data-texto="jorge ramírez jorge@correo.mx" data-filtro="ocasional" data-compras="2" data-total="610">
+              <td><div class="d-flex align-items-center gap-3">
+                <span class="avatar" style="background:#fbe5d0">JR</span>
+                <div><strong>Jorge Ramírez</strong><br><small>jorge@correo.mx · (831) 555-0204</small></div></div></td>
+              <td class="der">2</td>
+              <td>02/10/2026</td>
+              <td class="der"><strong>$610.00</strong></td>
+              <td class="der"><button class="btn-icono" title="Editar" onclick="proximamente('editar el cliente')">✏️</button><button class="btn-icono" title="Eliminar" onclick="borrarFila(this)">🗑️</button></td>
+            </tr>
+            <tr class="fila" data-texto="luisa hernández luisa@correo.mx" data-filtro="frecuente" data-compras="5" data-total="2240">
+              <td><div class="d-flex align-items-center gap-3">
+                <span class="avatar" style="background:#fbd9e5">LH</span>
+                <div><strong>Luisa Hernández</strong><br><small>luisa@correo.mx · (831) 555-0205</small></div></div></td>
+              <td class="der">5</td>
+              <td>01/10/2026</td>
+              <td class="der"><strong>$2,240.00</strong></td>
+              <td class="der"><button class="btn-icono" title="Editar" onclick="proximamente('editar el cliente')">✏️</button><button class="btn-icono" title="Eliminar" onclick="borrarFila(this)">🗑️</button></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="text-center py-3">Vivero Escobar © 2026</footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
+  <script>
+    // actualiza las cifras de arriba segun las filas que quedan
+    function actualizarResumen() {
+        const filas = document.querySelectorAll('.fila');
+        let compras = 0, total = 0;
+        filas.forEach(function (fila) {
+            compras += parseInt(fila.dataset.compras);
+            total += parseFloat(fila.dataset.total);
+        });
+        document.getElementById('n-clientes').textContent = filas.length;
+        document.getElementById('n-compras').textContent = compras;
+        document.getElementById('n-total').textContent = '$' + total.toLocaleString('en-US', { minimumFractionDigits: 2 });
+    }
+  </script>
+</body>
+</html>
